@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Oddments — A Cabinet of Curiosities</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;600&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<!-- Lucide icons -->
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.js"></script>
+
+<!-- React + Babel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  :root {
+    /* default = velvet light */
+    --bg: #efe6d2;
+    --bg-2: #e6dabf;
+    --surface: #f6efde;
+    --card: #fbf6e8;
+    --ink: #2c1f15;
+    --ink-2: #5a4632;
+    --ink-3: #8a755a;
+    --border: #c9b994;
+    --border-2: #b6a37b;
+    --accent: #a8842c;
+    --accent-2: #6b2229;
+    --tape: rgba(180, 150, 90, 0.35);
+    --grain: 0.12;
+    --shadow-sm: 0 1px 2px rgba(60, 40, 20, 0.08);
+    --shadow-md: 0 6px 20px -6px rgba(60, 40, 20, 0.18), 0 2px 4px rgba(60, 40, 20, 0.08);
+    --shadow-lg: 0 20px 50px -20px rgba(60, 40, 20, 0.35);
+    --radius-sm: 4px;
+    --radius: 6px;
+    --radius-lg: 10px;
+    --font-display: "Instrument Serif", "EB Garamond", Georgia, serif;
+    --font-body: "EB Garamond", Georgia, "Times New Roman", serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "Menlo", monospace;
+    --font-hand: "Caveat", "Bradley Hand", cursive;
+  }
+
+  /* Velvet Archive — Dark (candlelit library) */
+  [data-theme="velvet"][data-mode="dark"] {
+    --bg: #15100a;
+    --bg-2: #1c160e;
+    --surface: #221b13;
+    --card: #2a2117;
+    --ink: #ecdcc0;
+    --ink-2: #c4ad88;
+    --ink-3: #8e7a5d;
+    --border: #3d2e1f;
+    --border-2: #514028;
+    --accent: #d4a857;
+    --accent-2: #b54748;
+    --tape: rgba(180, 150, 90, 0.18);
+    --grain: 0.18;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 8px 24px -6px rgba(0, 0, 0, 0.55), 0 2px 6px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 24px 60px -20px rgba(0, 0, 0, 0.7);
+  }
+
+  /* Soft Relics — Light (scrapbook pastel) */
+  [data-theme="soft"][data-mode="light"] {
+    --bg: #f7eee5;
+    --bg-2: #f0e3d6;
+    --surface: #fdf5ef;
+    --card: #ffffff;
+    --ink: #3b2c34;
+    --ink-2: #6e5b65;
+    --ink-3: #a08c95;
+    --border: #ead8d0;
+    --border-2: #d8bfb4;
+    --accent: #d48a86;
+    --accent-2: #8da7c9;
+    --tape: rgba(212, 138, 134, 0.28);
+    --grain: 0.05;
+    --shadow-sm: 0 1px 3px rgba(140, 100, 110, 0.1);
+    --shadow-md: 0 8px 24px -8px rgba(140, 100, 110, 0.22), 0 2px 6px rgba(140, 100, 110, 0.08);
+    --shadow-lg: 0 28px 60px -20px rgba(140, 100, 110, 0.32);
+    --radius-sm: 8px;
+    --radius: 14px;
+    --radius-lg: 20px;
+  }
+
+  /* Soft Relics — Dark (dreamy lavender night) */
+  [data-theme="soft"][data-mode="dark"] {
+    --bg: #1a1422;
+    --bg-2: #1f1828;
+    --surface: #261e30;
+    --card: #2d2438;
+    --ink: #f0e6f2;
+    --ink-2: #b9a8c2;
+    --ink-3: #8a7c95;
+    --border: #3a2f47;
+    --border-2: #4d4060;
+    --accent: #d0a8e0;
+    --accent-2: #9bb0e0;
+    --tape: rgba(208, 168, 224, 0.2);
+    --grain: 0.1;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 8px 24px -6px rgba(0, 0, 0, 0.55);
+    --shadow-lg: 0 28px 70px -20px rgba(0, 0, 0, 0.7);
+    --radius-sm: 8px;
+    --radius: 14px;
+    --radius-lg: 20px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body, #root { height: 100%; margin: 0; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  /* Subtle grain overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: var(--grain);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    mix-blend-mode: multiply;
+  }
+
+  [data-mode="dark"] body::before, body[data-mode="dark"]::before { mix-blend-mode: screen; opacity: calc(var(--grain) * 0.6); }
+
+  ::selection { background: var(--accent); color: var(--card); }
+
+  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.005em; margin: 0; line-height: 1.05; }
+  h1 { font-size: 64px; }
+  h2 { font-size: 40px; }
+  h3 { font-size: 28px; }
+  h4 { font-size: 20px; }
+
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; }
+  input, textarea, select { font-family: inherit; color: inherit; }
+
+  /* App scroll container */
+  .app {
+    position: relative;
+    min-height: 100%;
+    z-index: 0;
+  }
+
+  /* Soft Relics has more curves and pastel feel */
+  [data-theme="soft"] h1, [data-theme="soft"] h2, [data-theme="soft"] h3 {
+    font-family: var(--font-display);
+  }
+
+  /* Velvet uses italic display flourishes */
+  .display-italic { font-style: italic; }
+
+  /* Reusable utility classes */
+  .mono { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .hand { font-family: var(--font-hand); font-size: 22px; line-height: 1.1; }
+  .small { font-size: 13px; color: var(--ink-2); }
+  .muted { color: var(--ink-2); }
+  .dim { color: var(--ink-3); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 999px; border: 2px solid var(--bg); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--ink-3); }
+
+  /* Modal/overlay base */
+  .overlay {
+    position: fixed; inset: 0; z-index: 100;
+    background: color-mix(in oklab, var(--ink) 55%, transparent);
+    backdrop-filter: blur(6px) saturate(120%);
+    -webkit-backdrop-filter: blur(6px) saturate(120%);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    animation: fadeIn 180ms ease;
+  }
+  @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+  @keyframes slideUp { from { transform: translateY(12px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
+  @keyframes pop { 0% { transform: scale(.96); opacity: 0 } 100% { transform: scale(1); opacity: 1 } }
+
+  /* Drawer-pull animation (velvet hover) */
+  @keyframes drawerOpen { from { transform: translateY(0) } to { transform: translateY(-3px) } }
+
+  /* Image placeholders w/ subtle stripes */
+  .img-stripes {
+    background:
+      repeating-linear-gradient(135deg,
+        color-mix(in oklab, var(--border) 80%, transparent) 0 1px,
+        transparent 1px 9px),
+      var(--bg-2);
+  }
+
+  /* Soft Relics: paper-cut sticker style */
+  [data-theme="soft"] .sticker {
+    position: relative;
+    background: var(--card);
+    box-shadow: 0 0 0 5px var(--card), 0 4px 12px rgba(140,100,110,.18);
+    border-radius: 999px;
+  }
+
+  /* ───────── AURORA GLASS ───────── */
+  [data-theme="aurora"][data-mode="light"] {
+    --bg: #E3E6EA;
+    --bg-2: #d6dade;
+    --surface: rgba(255,255,255,0.55);
+    --card: rgba(255,255,255,0.66);
+    --ink: #3C3F4A;
+    --ink-2: #5a5d68;
+    --ink-3: #8C8F91;
+    --border: rgba(255,255,255,0.85);
+    --border-2: rgba(60,63,74,0.10);
+    --accent: #3C3F4A;
+    --accent-2: #B9AABF;
+    --tape: rgba(185,170,191,.30);
+    --grain: 0.04;
+    --shadow-sm: 0 1px 2px rgba(20,30,60,0.04), 0 0 0 0.5px rgba(20,30,60,0.06);
+    --shadow-md: 0 4px 14px -4px rgba(20,30,60,0.10), 0 1px 3px rgba(20,30,60,0.05), 0 0 0 0.5px rgba(20,30,60,0.06);
+    --shadow-lg: 0 24px 60px -20px rgba(20,30,60,0.20), 0 0 0 0.5px rgba(20,30,60,0.06);
+    --radius-sm: 10px;
+    --radius: 14px;
+    --radius-lg: 22px;
+    --font-display: "Instrument Serif", "EB Garamond", Georgia, serif;
+    --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  [data-theme="aurora"][data-mode="dark"] {
+    --bg: #2a2c33;
+    --bg-2: #2f323a;
+    --surface: rgba(255,255,255,0.04);
+    --card: rgba(255,255,255,0.05);
+    --ink: #E3E6EA;
+    --ink-2: #B9AABF;
+    --ink-3: #8C8F91;
+    --border: rgba(227,230,234,0.14);
+    --border-2: rgba(227,230,234,0.20);
+    --accent: #B9AABF;
+    --accent-2: #A8B5C1;
+    --tape: rgba(185,170,191,0.20);
+    --grain: 0.06;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.4), 0 0 0 0.5px rgba(255,255,255,0.06);
+    --shadow-md: 0 8px 28px -8px rgba(0,0,0,0.55), 0 0 0 0.5px rgba(255,255,255,0.08);
+    --shadow-lg: 0 28px 70px -20px rgba(0,0,0,0.7), 0 0 0 0.5px rgba(255,255,255,0.08);
+    --radius-sm: 10px;
+    --radius: 14px;
+    --radius-lg: 22px;
+    --font-display: "Instrument Serif", Georgia, serif;
+    --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+  }
+
+  /* Aurora background mesh — soft animated blobs */
+  .aurora-bg { display: none; }
+  [data-theme="aurora"] .aurora-bg {
+    display: block;
+    position: fixed; inset: -10vh -10vw;
+    z-index: 0; pointer-events: none; overflow: hidden;
+    filter: blur(60px) saturate(120%);
+  }
+  [data-theme="aurora"] .aurora-bg::before,
+  [data-theme="aurora"] .aurora-bg::after {
+    content: ""; position: absolute; border-radius: 50%;
+    will-change: transform;
+  }
+  [data-theme="aurora"][data-mode="light"] .aurora-bg::before {
+    width: 60vw; height: 60vw; left: -10vw; top: -20vh;
+    background: radial-gradient(circle, #B9AABF 0%, transparent 60%);
+    opacity: 0.55;
+    animation: auroraDriftA 22s ease-in-out infinite alternate;
+  }
+  [data-theme="aurora"][data-mode="light"] .aurora-bg::after {
+    width: 70vw; height: 70vw; right: -20vw; top: 10vh;
+    background: radial-gradient(circle, #A8B5C1 0%, transparent 60%);
+    opacity: 0.50;
+    animation: auroraDriftB 28s ease-in-out infinite alternate;
+  }
+  [data-theme="aurora"][data-mode="dark"] .aurora-bg::before {
+    width: 70vw; height: 70vw; left: -15vw; top: -20vh;
+    background: radial-gradient(circle, #6B5A78 0%, transparent 60%);
+    opacity: 0.55;
+    animation: auroraDriftA 22s ease-in-out infinite alternate;
+  }
+  [data-theme="aurora"][data-mode="dark"] .aurora-bg::after {
+    width: 80vw; height: 80vw; right: -25vw; top: 5vh;
+    background: radial-gradient(circle, #5a6068 0%, transparent 60%);
+    opacity: 0.50;
+    animation: auroraDriftB 28s ease-in-out infinite alternate;
+  }
+  @keyframes auroraDriftA { 0%{transform:translate(0,0)} 100%{transform:translate(8vw,6vh)} }
+  @keyframes auroraDriftB { 0%{transform:translate(0,0)} 100%{transform:translate(-6vw,4vh)} }
+
+  /* Aurora-specific component upgrades */
+  [data-theme="aurora"] body { background: var(--bg); }
+  [data-theme="aurora"] body::before { display: none; } /* drop the paper grain */
+  [data-theme="aurora"] h1, [data-theme="aurora"] h2, [data-theme="aurora"] h3, [data-theme="aurora"] h4 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  [data-theme="aurora"] h1 { font-size: 56px; font-weight: 500; letter-spacing: -0.03em; }
+  [data-theme="aurora"] .display-italic, [data-theme="aurora"] .serif-accent {
+    font-family: var(--font-display); font-weight: 400; font-style: italic; letter-spacing: -0.005em;
+  }
+
+  /* Glass cards: backdrop blur + 0.5px borders, no heavy shadows */
+  [data-theme="aurora"] .glass {
+    background: var(--card);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+    border: 0.5px solid var(--border);
+    box-shadow: var(--shadow-sm);
+  }
+  [data-theme="aurora"] .img-stripes {
+    background:
+      repeating-linear-gradient(135deg, rgba(13,16,20,0.05) 0 1px, transparent 1px 9px),
+      var(--bg-2);
+  }
+
+  /* Pill nav for aurora */
+  [data-theme="aurora"] .nav-pill {
+    background: var(--card);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+    border: 0.5px solid var(--border);
+    border-radius: 999px;
+    box-shadow: 0 1px 2px rgba(20,30,60,0.05), 0 0 0 0.5px rgba(20,30,60,0.04);
+  }
+
+  /* ── Aurora glass overrides for Oddments components ── */
+  [data-theme="aurora"] .oc-card,
+  [data-theme="aurora"] .oc-curio,
+  [data-theme="aurora"] .oc-coll,
+  [data-theme="aurora"] .oc-modal {
+    -webkit-backdrop-filter: blur(24px) saturate(170%) !important;
+    backdrop-filter: blur(24px) saturate(170%) !important;
+    border-color: var(--border) !important;
+    border-width: 0.5px !important;
+  }
+
+  [data-theme="aurora"] .oc-curio,
+  [data-theme="aurora"] .oc-coll {
+    border-radius: 22px !important;
+  }
+
+  [data-theme="aurora"] .oc-curio:hover,
+  [data-theme="aurora"] .oc-coll:hover {
+    background: color-mix(in oklab, var(--card) 85%, white) !important;
+  }
+  [data-theme="aurora"][data-mode="dark"] .oc-curio:hover,
+  [data-theme="aurora"][data-mode="dark"] .oc-coll:hover {
+    background: rgba(255,255,255,0.08) !important;
+  }
+
+  /* Hide tape/wax dressing on aurora cards (it doesn't fit the futurist look) */
+  [data-theme="aurora"] .oc-curio > div[style*="rotate(-2deg)"],
+  [data-theme="aurora"] .oc-curio > div[style*="rotate(-3deg)"] { display: none !important; }
+
+  /* Pill nav bar */
+  [data-theme="aurora"] .oc-nav {
+    background: transparent !important;
+    border-bottom: 0 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding-top: 14px !important;
+  }
+  [data-theme="aurora"] .oc-nav > div {
+    background: var(--card);
+    -webkit-backdrop-filter: blur(28px) saturate(170%);
+    backdrop-filter: blur(28px) saturate(170%);
+    border: 0.5px solid var(--border);
+    border-radius: 999px !important;
+    box-shadow: 0 2px 12px -4px rgba(20,30,60,0.10), 0 0 0 0.5px rgba(20,30,60,0.04);
+    padding: 8px 22px 8px 22px !important;
+    margin: 0 auto !important;
+    max-width: 1320px !important;
+    width: calc(100% - 64px);
+  }
+  [data-theme="aurora"] .oc-nav nav button {
+    border-radius: 999px !important;
+    border-color: transparent !important;
+    padding: 6px 14px !important;
+    font-weight: 500 !important;
+    font-size: 13.5px !important;
+  }
+  [data-theme="aurora"] .oc-nav nav button[style*="surface"] {
+    background: var(--ink) !important;
+    color: var(--bg) !important;
+  }
+
+  /* Pill buttons */
+  [data-theme="aurora"] .oc-btn {
+    border-radius: 999px !important;
+    font-weight: 500 !important;
+    border-width: 0.5px !important;
+    letter-spacing: 0 !important;
+    padding: 8px 16px !important;
+    font-size: 14px !important;
+  }
+  [data-theme="aurora"] .oc-btn-primary {
+    background: var(--ink) !important;
+    color: var(--bg) !important;
+    border-color: var(--ink) !important;
+  }
+  [data-theme="aurora"] .oc-btn-secondary {
+    background: var(--card) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+    border-color: var(--border) !important;
+    color: var(--ink) !important;
+  }
+  [data-theme="aurora"] .oc-iconbtn {
+    border-radius: 999px !important;
+    background: var(--card) !important;
+    border-color: var(--border) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+  }
+
+  /* Pill tags */
+  [data-theme="aurora"] .oc-tag {
+    border-radius: 999px !important;
+    border-width: 0.5px !important;
+    font-size: 11px !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    font-family: var(--font-body) !important;
+    padding: 3px 11px !important;
+    background: var(--card) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    backdrop-filter: blur(12px) saturate(160%);
+    border-color: var(--border) !important;
+  }
+
+  /* Inputs become glass pills too */
+  [data-theme="aurora"] input[type="text"],
+  [data-theme="aurora"] textarea,
+  [data-theme="aurora"] select {
+    background: var(--card) !important;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 0.5px solid var(--border) !important;
+    border-radius: 12px !important;
+  }
+
+  /* Nav search — no background, just a hairline border (pill provides the glass context) */
+  [data-theme="aurora"] .oc-nav .oc-search {
+    background: transparent !important;
+    border-color: rgba(68,50,104,0.22) !important;
+    border-radius: 999px !important;
+  }
+  [data-theme="aurora"][data-mode="dark"] .oc-nav .oc-search {
+    background: transparent !important;
+    border-color: rgba(194,192,226,0.28) !important;
+  }
+
+  /* Prevent double-border: the .oc-search wrapper is the only styled element; the inner input must be bare */
+  .oc-search input[type="text"],
+  .oc-search input[type="text"]:focus,
+  .oc-search input[type="text"]:focus-visible,
+  .oc-search input[type="text"]:active {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+  }
+
+  /* Fix accent button text in dark mode (--card is near-transparent there) */
+  [data-theme="aurora"][data-mode="dark"] .oc-btn-accent {
+    color: var(--bg) !important;
+  }
+
+  /* Logo: invert to white in dark mode so it's visible against dark bg */
+  [data-mode="dark"] .oc-nav-logo {
+    filter: invert(1) brightness(0.9);
+  }
+
+  /* Mono labels: lighter and tighter for the futurist tone — use Manrope, not JetBrains */
+  [data-theme="aurora"] .mono {
+    font-family: var(--font-body) !important;
+    letter-spacing: 0.14em !important;
+    font-size: 10.5px !important;
+    color: var(--ink-3) !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+  }
+
+  /* Body type rebalance: looks too italic-heavy otherwise */
+  [data-theme="aurora"] em,
+  [data-theme="aurora"] i,
+  [data-theme="aurora"] [style*="italic"]:not(h1):not(h2):not(h3):not(h4) {
+    font-style: normal;
+  }
+  [data-theme="aurora"] h1, [data-theme="aurora"] h2, [data-theme="aurora"] h3 {
+    font-style: normal !important;
+  }
+  /* But allow the hero italic accent on the home page */
+  [data-theme="aurora"] h1 span[style*="--accent"],
+  [data-theme="aurora"] h1 .serif-accent { font-family: var(--font-display) !important; font-style: italic !important; font-weight: 400 !important; }
+
+  /* Aurora-only halo behind hero h1 */
+  [data-theme="aurora"] h1 { line-height: 1.05 !important; }
+
+  /* Modal overlay tone */
+  [data-theme="aurora"] .overlay {
+    background: color-mix(in oklab, var(--bg) 60%, transparent);
+  }
+
+  /* Vine blob — cartoony offset sticker shadow, theme-aware */
+  .vine-blob {
+    box-shadow: 5px 6px 0 #443268, 0 20px 60px -20px rgba(60,63,74,0.22), 0 0 0 0.5px var(--border-2);
+  }
+  [data-mode="dark"] .vine-blob {
+    box-shadow: 5px 6px 0 #c2c0e2, 0 24px 50px -16px rgba(0,0,0,0.5), 0 0 0 0.5px var(--border-2);
+  }
+</style>
+</head>
+<body data-theme="aurora" data-mode="light">
+  <div class="aurora-bg" aria-hidden="true"></div>
+  <div id="root"></div>
+
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script src="seed.js"></script>
+  <script type="text/babel" src="store.jsx"></script>
+  <script type="text/babel" src="icons.jsx"></script>
+  <script type="text/babel" src="ui.jsx"></script>
+  <script type="text/babel" src="pages-main.jsx"></script>
+  <script type="text/babel" src="pages-explore.jsx"></script>
+  <script type="text/babel" src="pages-modals.jsx"></script>
+  <script type="text/babel" src="app.jsx"></script>
+</body>
+</html>
