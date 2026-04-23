@@ -124,7 +124,7 @@ window.SEED = (function () {
     {
       id: "c5",
       title: "geocities.com/lemonshrine",
-      description: "A site about lemons that hasn't been updated since 2003. Midi music, glittering gifs, a guestbook with 14 entries.",
+      description: "A site about lemons that hasn't been updated since 2003. Midi music, glittering gifs, a guestbook with 11 entries.",
       mood: "chaotic",
       category: "internet",
       tags: ["web1.0", "weird", "archive"],
