@@ -75,7 +75,7 @@ function useStore() {
   const duplicateCuriosity = (id) => {
     const item = curiosities.find(c => c.id === id);
     if (!item) return;
-    const dup = { ...item, id: "c" + Date.now(), title: item.title + " (copy)", favorite: false, added: new Date().toISOString().slice(0, 10) };
+    const dup = { ...item, id: "c" + Date.now(), title: item.title + " — copy", favorite: false, added: new Date().toISOString().slice(0, 10) };
     setCuriosities(prev => [dup, ...prev]);
     setCollections(prev => prev.map(c => c.id === dup.collection ? { ...c, count: c.count + 1 } : c));
   };
