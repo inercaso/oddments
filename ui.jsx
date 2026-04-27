@@ -6,7 +6,7 @@ const I = (props) => <Icon {...props} />;
 function Button({ variant = "primary", size = "md", icon, iconRight, children, ...rest }) {
   const base = {
     display: "inline-flex", alignItems: "center", gap: 8,
-    fontFamily: "var(--font-body)", fontSize: 15, fontWeight: 500,
+    fontFamily: "var(--font-body)", fontSize: 14, fontWeight: 500,
     border: "1px solid transparent", borderRadius: "var(--radius)",
     padding: size === "sm" ? "5px 11px" : size === "lg" ? "10px 20px" : "7px 14px",
     transition: "all 140ms ease", cursor: "pointer",
@@ -178,7 +178,7 @@ function SearchInput({ value, onChange, placeholder = "Search the archive…", a
         onChange={e => onChange(e.target.value)}
         style={{
           background: "transparent", border: 0, outline: 0,
-          padding: "9px 6px", fontSize: 15, color: "var(--ink)",
+          padding: "9px 6px", fontSize: 14, color: "var(--ink)",
           width: "100%", fontFamily: "var(--font-body)",
         }}
       />
@@ -240,7 +240,7 @@ const inputStyle = {
   background: "var(--surface)",
   border: "1px solid var(--border)",
   borderRadius: "var(--radius)",
-  fontSize: 15, fontFamily: "var(--font-body)", color: "var(--ink)",
+  fontSize: 14, fontFamily: "var(--font-body)", color: "var(--ink)",
   outline: 0,
 };
 
