@@ -22,7 +22,7 @@ function Dashboard({ store, theme, onOpenItem, onOpenCollection, onAdd }) {
   const cotw = collections[week % collections.length];
 
   return (
-    <div style={{ maxWidth: 1320, margin: "0 auto", padding: "48px 32px 80px" }}>
+    <div style={{ maxWidth: 1320, margin: "0 auto", padding: "40px 32px 80px" }}>
       {/* Hero */}
       <div style={{ marginBottom: 56, display: "grid", gridTemplateColumns: "minmax(0,1fr) 280px", gap: 32, alignItems: "stretch" }}>
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: 320 }}>
@@ -220,7 +220,7 @@ function CollectionsPage({ store, theme, onOpenCollection, onNewCollection }) {
   const filtered = filter === "pinned" ? collections.filter(c => c.pinned) : collections;
 
   return (
-    <div style={{ maxWidth: 1320, margin: "0 auto", padding: "48px 32px 80px" }}>
+    <div style={{ maxWidth: 1320, margin: "0 auto", padding: "40px 32px 80px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 36 }}>
         <div>
           <div className="mono" style={{ color: "var(--ink-3)", marginBottom: 8 }}>The Cabinets</div>
