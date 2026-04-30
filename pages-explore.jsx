@@ -58,7 +58,7 @@ function ExplorePage({ store, theme, search, onSearch, onOpenItem }) {
           </FilterGroup>
           <FilterGroup label="Tags">
             <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-              {tagCounts.slice(0, 30).map(([t, n]) => (
+              {tagCounts.slice(0, 24).map(([t, n]) => (
                 <Tag key={t} active={tags.includes(t)} onClick={() => toggleIn(tags, t, setTags)}>{t} · {n}</Tag>
               ))}
             </div>
