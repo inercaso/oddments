@@ -18,7 +18,7 @@ function AddCuriosityModal({ open, onClose, onSubmit, initial, store }) {
   const previewImg = form.image || "data:image/svg+xml;utf8," + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='200' height='200' fill='#e9dfc8'/><text x='100' y='105' text-anchor='middle' font-family='monospace' font-size='10' fill='#8a755a'>image preview</text></svg>");
 
   return (
-    <Modal open={open} onClose={onClose} title={initial ? "Edit curiosity" : "Catalogue a new curiosity"} subtitle={initial ? "Editing · " + initial.title : "Add to the archive"} width={680}>
+    <Modal open={open} onClose={onClose} title={initial ? "Edit curiosity" : "Catalogue a new curiosity"} subtitle={initial ? "Editing · " + initial.title : "Add to the cabinet"} width={680}>
       <div style={{ display: "grid", gridTemplateColumns: "180px 1fr", gap: 24 }}>
         <div>
           <div className="img-stripes" style={{ aspectRatio: "1", borderRadius: "var(--radius)", overflow: "hidden", background: "var(--bg-2)", border: "1px solid var(--border)" }}>
