@@ -1,7 +1,7 @@
 // app.jsx — top-level Oddments app
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "theme": "velvet",
+  "theme": "aurora",
   "mode": "light"
 }/*EDITMODE-END*/;
 
