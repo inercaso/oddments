@@ -1,0 +1,3 @@
+server/.env
+server/oddments.db
+server/node_modules/
