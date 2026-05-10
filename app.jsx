@@ -98,6 +98,14 @@ function App() {
     viewEl = <StatsPage store={store} theme={tweaks.theme} />;
   }
 
+  if (store.loading) {
+    return (
+      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)", color: "var(--ink-3)", fontFamily: "var(--font-body)", fontSize: "1.1rem", letterSpacing: "0.04em" }}>
+        Loading archive…
+      </div>
+    );
+  }
+
   return (
     <div className="app">
       <NavBar
